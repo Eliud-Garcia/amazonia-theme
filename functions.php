@@ -64,3 +64,41 @@ function amazonia_theme_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'amazonia_theme_scripts' );
+
+/**
+ * Register widget area.
+ */
+function amazonia_widgets_init() {
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Sidebar', 'amazonia-theme' ),
+			'id'            => 'sidebar-1',
+			'description'   => esc_html__( 'Add widgets here.', 'amazonia-theme' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+}
+add_action( 'widgets_init', 'amazonia_widgets_init' );
+
+/**
+ * Custom WooCommerce Wrappers
+ */
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+
+if ( ! function_exists( 'amazonia_woocommerce_wrapper_before' ) ) {
+	function amazonia_woocommerce_wrapper_before() {
+		echo '<main id="primary" class="site-main">';
+	}
+}
+add_action( 'woocommerce_before_main_content', 'amazonia_woocommerce_wrapper_before', 10 );
+
+if ( ! function_exists( 'amazonia_woocommerce_wrapper_after' ) ) {
+	function amazonia_woocommerce_wrapper_after() {
+		echo '</main>';
+	}
+}
+add_action( 'woocommerce_after_main_content', 'amazonia_woocommerce_wrapper_after', 10 );

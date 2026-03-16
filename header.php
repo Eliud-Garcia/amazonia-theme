@@ -5,19 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
     <?php wp_head(); ?>
-    <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
-        .site-header { background-color: #1a202c; color: #fff; padding: 30px 20px; text-align: center; border-bottom: 4px solid #48bb78; }
-        .site-header h1 a { color: #fff; text-decoration: none; font-size: 2.5rem; font-weight: bold; }
-        .site-description { color: #a0aec0; margin-top: 10px; font-size: 1.1rem; }
-        .site-content { padding: 40px 20px; max-width: 1200px; margin: 40px auto; background: #fff; min-height: 50vh; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px;}
-        .site-footer { background-color: #2d3748; color: #e2e8f0; padding: 30px 20px; text-align: center; margin-top: 40px; }
-        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
-        nav ul a { color: #edf2f7; text-decoration: none; font-weight: 500; }
-        nav ul a:hover { color: #48bb78; }
-        .entry-title a { color: #2d3748; text-decoration: none; }
-        .entry-title a:hover { color: #48bb78; }
-    </style>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
@@ -39,6 +26,22 @@
                 )
             );
             ?>
+
+            <?php if ( class_exists( 'WooCommerce' ) ) : ?>
+                <ul class="wc-header-links" style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 30px; margin-top: 1rem; border-top: 1px solid #2d3748; padding-top: 1rem;">
+                    <li><a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Tienda', 'amazonia-theme' ); ?></a></li>
+                    <li><a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>"><?php esc_html_e( 'Mi Cuenta', 'amazonia-theme' ); ?></a></li>
+                    <li>
+                        <a class="cart-customlocation" href="<?php echo esc_url( wc_get_cart_url() ); ?>" title="<?php esc_attr_e( 'Ver tu carrito', 'amazonia-theme' ); ?>">
+                            <?php esc_html_e( 'Carrito', 'amazonia-theme' ); ?>
+                            <span class="cart-count" style="background: #4ade80; color: #0f172a; padding: 2px 8px; border-radius: 999px; font-weight: bold; font-size: 0.8rem; margin-left: 5px;">
+                                <?php echo WC()->cart ? wp_kses_data( WC()->cart->get_cart_contents_count() ) : '0'; ?>
+                            </span>
+                        </a>
+                    </li>
+                    <li><a href="<?php echo esc_url( wc_get_checkout_url() ); ?>"><?php esc_html_e( 'Checkout', 'amazonia-theme' ); ?></a></li>
+                </ul>
+            <?php endif; ?>
         </nav>
     </header>
 
