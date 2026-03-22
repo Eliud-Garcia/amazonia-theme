@@ -4,7 +4,7 @@
             <h3 class="font-bold text-lg flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary">filter_list</span> Filtros
             </h3>
-            <button class="text-xs text-primary font-semibold hover:underline">Limpiar</button>
+            <button onclick="window.location.href='<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>'" class="text-xs text-primary font-semibold hover:underline">Limpiar</button>
         </div>
         <div class="space-y-6">
             <!-- Category Filter -->

@@ -110,3 +110,46 @@ if ( ! function_exists( 'amazonia_woocommerce_wrapper_after' ) ) {
 	}
 }
 add_action( 'woocommerce_after_main_content', 'amazonia_woocommerce_wrapper_after', 10 );
+
+/**
+ * Unhook default WooCommerce single product functions.
+ * This allows us to use core hooks in our custom template so plugins (like WCFM) can inject buttons (e.g., Edit Product)
+ * without duplicating the title, price, etc.
+ */
+function amazonia_unhook_single_product_defaults() {
+	if ( is_product() ) {
+		// Before Summary
+		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
+		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+
+		// Summary
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
+		
+		// After Summary
+		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
+		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+	}
+}
+add_action( 'wp', 'amazonia_unhook_single_product_defaults' );
+
+/**
+ * Override standard template correctly for WCFM Dashboard
+ */
+add_filter( 'template_include', function( $template ) {
+	global $post;
+	// Si la página tiene el shortcode de WCFM, forzamos la plantilla correcta.
+	if ( is_singular() && is_a( $post, 'WP_Post' ) && ( has_shortcode( $post->post_content, 'wc_frontend_manager' ) || has_shortcode( $post->post_content, 'wcfm_store_manager' ) ) ) {
+		$new_template = locate_template( array( 'template-wcfm-dashboard.php' ) );
+		if ( ! empty( $new_template ) ) {
+			return $new_template;
+		}
+	}
+	return $template;
+}, 99 );
