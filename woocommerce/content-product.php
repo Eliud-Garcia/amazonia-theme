@@ -84,14 +84,14 @@ if ( ! is_a( $product, WC_Product::class ) || ! $product->is_visible() ) {
         echo '<p class="text-xs text-primary font-medium mb-3">' . esc_html( $store_name ) . '</p>';
         ?>
 
-        <div class="mt-auto pt-4 flex items-center justify-between gap-1">
-            <span class="text-xl font-black text-slate-900 dark:text-slate-100 flex-1">
+        <div class="mt-auto pt-4 flex flex-wrap items-center justify-between gap-2">
+            <span class="text-lg font-black text-slate-900 dark:text-slate-100 break-words max-w-full">
                 <?php echo $product->get_price_html(); ?>
             </span>
             
             <?php
             echo apply_filters( 'woocommerce_loop_add_to_cart_link', 
-                sprintf( '<a href="%s" data-quantity="%s" class="%s bg-primary hover:bg-primary/90 text-white text-[10px] sm:text-xs font-bold px-3 py-2 rounded-full transition-colors text-center whitespace-nowrap" %s>%s</a>',
+                sprintf( '<a href="%s" data-quantity="%s" class="%s bg-primary hover:bg-primary/90 text-white text-[12px] font-bold px-4 py-2 rounded-full transition-colors text-center w-full sm:w-auto" %s>%s</a>',
                     esc_url( $product->add_to_cart_url() ),
                     esc_attr( isset( $args['quantity'] ) ? $args['quantity'] : 1 ),
                     $product->is_purchasable() && $product->is_in_stock() ? 'add_to_cart_button ajax_add_to_cart' : '',
