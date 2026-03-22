@@ -28,13 +28,13 @@ get_header( 'shop' );
  */
 do_action( 'woocommerce_before_main_content' );
 ?>
-<div class="lg:flex lg:gap-8 max-w-7xl mx-auto px-4 sm:px-6 w-full py-8">
+<div class="lg:flex lg:gap-8 max-w-[1400px] mx-auto px-4 sm:px-8 w-full py-8">
 	<!-- Sidebar Filters -->
-	<div class="hidden lg:block lg:w-1/4">
+	<div class="hidden lg:block lg:w-64 flex-shrink-0">
 		<?php get_template_part( 'template-parts/filters/sidebar-filters' ); ?>
 	</div>
 	<!-- Main Shop Content -->
-	<div class="w-full lg:w-3/4">
+	<div class="w-full lg:flex-1">
 <?php
 /**
  * Hook: woocommerce_shop_loop_header.
