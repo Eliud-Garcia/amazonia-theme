@@ -42,35 +42,24 @@ $oldcol = 1;
 $col    = 1;
 ?>
 
-<p>
+<p class="text-slate-600 dark:text-slate-400 mb-8">
 	<?php echo apply_filters( 'woocommerce_my_account_my_address_description', esc_html__( 'The following addresses will be used on the checkout page by default.', 'woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 </p>
 
 <?php if ( ! wc_ship_to_billing_address_only() && wc_shipping_enabled() ) : ?>
-	<div class="u-columns woocommerce-Addresses col2-set addresses">
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-8 woocommerce-Addresses addresses">
 <?php endif; ?>
 
 <?php foreach ( $get_addresses as $name => $address_title ) : ?>
 	<?php
 		$address = wc_get_account_formatted_address( $name );
-		$col     = $col * -1;
-		$oldcol  = $oldcol * -1;
 	?>
 
-	<div class="u-column<?php echo $col < 0 ? 1 : 2; ?> col-<?php echo $oldcol < 0 ? 1 : 2; ?> woocommerce-Address">
-		<header class="woocommerce-Address-title title">
-			<h2><?php echo esc_html( $address_title ); ?></h2>
-			<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-address', $name ) ); ?>" class="edit">
-				<?php
-					printf(
-						/* translators: %s: Address title */
-						$address ? esc_html__( 'Edit %s', 'woocommerce' ) : esc_html__( 'Add %s', 'woocommerce' ),
-						esc_html( $address_title )
-					);
-				?>
-			</a>
+	<div class="bg-white dark:bg-slate-800 rounded-2xl p-6 lg:p-8 shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors w-full float-none m-0 woocommerce-Address flex flex-col h-full">
+		<header class="mb-4 border-b border-slate-100 dark:border-slate-700 pb-4 woocommerce-Address-title title">
+			<h3 class="text-xl font-bold text-slate-900 dark:text-white m-0 leading-tight"><?php echo esc_html( $address_title ); ?></h3>
 		</header>
-		<address>
+		<address class="not-italic text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
 			<?php
 				echo $address ? wp_kses_post( $address ) : esc_html_e( 'You have not set up this type of address yet.', 'woocommerce' );
 
@@ -83,6 +72,17 @@ $col    = 1;
 				do_action( 'woocommerce_my_account_after_my_address', $name );
 			?>
 		</address>
+		<div class="mt-auto pt-4">
+			<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-address', $name ) ); ?>" class="edit text-sm font-bold text-primary hover:text-white hover:bg-primary transition-all bg-primary/10 px-6 py-3 rounded-xl block text-center w-full">
+				<?php
+					printf(
+						/* translators: %s: Address title */
+						$address ? esc_html__( 'Edit %s', 'woocommerce' ) : esc_html__( 'Add %s', 'woocommerce' ),
+						esc_html( $address_title )
+					);
+				?>
+			</a>
+		</div>
 	</div>
 
 <?php endforeach; ?>

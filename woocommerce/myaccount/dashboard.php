@@ -59,7 +59,7 @@ $allowed_html = array(
 	</p>
 </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
 	<a href="<?php echo esc_url( wc_get_endpoint_url( 'orders' ) ); ?>" class="group bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-primary/30 transition-all duration-300 hover:shadow-xl flex flex-col items-center text-center">
 		<div class="h-16 w-16 bg-white dark:bg-slate-800 shadow-sm border border-primary/10 rounded-full flex items-center justify-center text-primary mb-4 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
 			<span class="material-symbols-outlined text-[32px]">shopping_bag</span>
@@ -82,6 +82,18 @@ $allowed_html = array(
 		</div>
 		<h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-2 group-hover:text-primary transition-colors">Detalles de Cuenta</h3>
 		<p class="text-sm text-slate-500">Actualizar datos personales y contraseña</p>
+	</a>
+
+	<?php
+	// URL for the store manager. We use standard WCFM slug or function if available.
+	$manager_url = function_exists('get_wcfm_url') ? get_wcfm_url() : home_url('/store-manager/');
+	?>
+	<a href="<?php echo esc_url( $manager_url ); ?>" class="group bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-primary/30 transition-all duration-300 hover:shadow-xl flex flex-col items-center text-center">
+		<div class="h-16 w-16 bg-white dark:bg-slate-800 shadow-sm border border-primary/10 rounded-full flex items-center justify-center text-primary mb-4 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+			<span class="material-symbols-outlined text-[32px]">storefront</span>
+		</div>
+		<h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-2 group-hover:text-primary transition-colors">Panel de Manager</h3>
+		<p class="text-sm text-slate-500">Gestionar tus productos, tienda y ajustes</p>
 	</a>
 </div>
 
