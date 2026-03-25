@@ -17,11 +17,11 @@
 
 defined( 'ABSPATH' ) || exit;
 ?>
-<table class="shop_table woocommerce-checkout-review-order-table">
+<table class="shop_table woocommerce-checkout-review-order-table w-full text-left border-collapse">
 	<thead>
-		<tr>
-			<th class="product-name"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-			<th class="product-total"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
+		<tr class="border-b border-slate-200 dark:border-slate-700">
+			<th class="product-name py-4 text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
+			<th class="product-total py-4 text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider text-right"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -33,13 +33,13 @@ defined( 'ABSPATH' ) || exit;
 
 			if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 				?>
-				<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
-					<td class="product-name">
+				<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> border-b border-slate-100 dark:border-slate-800 last:border-0">
+					<td class="product-name py-4 text-sm text-slate-600 dark:text-slate-400">
 						<?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) ) . '&nbsp;'; ?>
-						<?php echo apply_filters( 'woocommerce_checkout_cart_item_quantity', ' <strong class="product-quantity">' . sprintf( '&times;&nbsp;%s', $cart_item['quantity'] ) . '</strong>', $cart_item, $cart_item_key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<?php echo apply_filters( 'woocommerce_checkout_cart_item_quantity', ' <strong class="product-quantity text-slate-400">' . sprintf( '&times;&nbsp;%s', $cart_item['quantity'] ) . '</strong>', $cart_item, $cart_item_key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						<?php echo wc_get_formatted_cart_item_data( $cart_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
-					<td class="product-total">
+					<td class="product-total py-4 text-sm font-bold text-slate-900 dark:text-slate-100 text-right">
 						<?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</td>
 				</tr>
@@ -52,15 +52,15 @@ defined( 'ABSPATH' ) || exit;
 	</tbody>
 	<tfoot>
 
-		<tr class="cart-subtotal">
-			<th><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
-			<td><?php wc_cart_totals_subtotal_html(); ?></td>
+		<tr class="cart-subtotal border-t border-slate-200 dark:border-slate-700">
+			<th class="py-4 text-sm font-bold text-slate-800 dark:text-slate-200"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
+			<td class="py-4 text-sm font-bold text-slate-900 dark:text-slate-100 text-right"><?php wc_cart_totals_subtotal_html(); ?></td>
 		</tr>
 
 		<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
-			<tr class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
-				<th><?php wc_cart_totals_coupon_label( $coupon ); ?></th>
-				<td><?php wc_cart_totals_coupon_html( $coupon ); ?></td>
+			<tr class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?> border-t border-slate-200 dark:border-slate-700">
+				<th class="py-4 text-sm font-bold text-slate-800 dark:text-slate-200"><?php wc_cart_totals_coupon_label( $coupon ); ?></th>
+				<td class="py-4 text-sm font-bold text-slate-900 dark:text-slate-100 text-right"><?php wc_cart_totals_coupon_html( $coupon ); ?></td>
 			</tr>
 		<?php endforeach; ?>
 
@@ -99,9 +99,9 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php do_action( 'woocommerce_review_order_before_order_total' ); ?>
 
-		<tr class="order-total">
-			<th><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
-			<td><?php wc_cart_totals_order_total_html(); ?></td>
+		<tr class="order-total border-t border-slate-200 dark:border-slate-700">
+			<th class="py-4 text-lg font-black text-slate-900 dark:text-white"><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
+			<td class="py-4 text-lg font-black text-primary text-right"><?php wc_cart_totals_order_total_html(); ?></td>
 		</tr>
 
 		<?php do_action( 'woocommerce_review_order_after_order_total' ); ?>
