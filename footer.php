@@ -22,7 +22,7 @@
             <div>
                 <h6 class="font-bold mb-6 uppercase text-xs tracking-widest text-primary">Quick Links</h6>
                 <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a class="hover:text-white transition-colors" href="#">About Us</a></li>
+                    <li><a class="hover:text-white transition-colors" href="<?php echo esc_url( site_url( '/about-us' ) ); ?>">About Us</a></li>
                     <li><a class="hover:text-white transition-colors" href="#">Sustainability Reports</a></li>
                     <li><a class="hover:text-white transition-colors" href="#">Wholesale</a></li>
                     <li><a class="hover:text-white transition-colors" href="#">Shipping Policy</a></li>
