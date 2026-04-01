@@ -153,3 +153,20 @@ add_filter( 'template_include', function( $template ) {
 	}
 	return $template;
 }, 99 );
+
+/**
+ * Auto-create "About Us" page when theme loads to fix 404
+ */
+add_action('init', function() {
+    $page_slug = 'about-us';
+    $page_check = get_page_by_path($page_slug);
+    if (!$page_check) {
+        wp_insert_post(array(
+            'post_type'   => 'page',
+            'post_title'  => 'About Us',
+            'post_name'   => $page_slug,
+            'post_status' => 'publish',
+            'post_author' => 1,
+        ));
+    }
+});
